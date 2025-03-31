@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生活压力指数 / Life Stress Index</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+        .start-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .start-btn:hover {
+            background-color: #45a049;
+        }
+        .video-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 1000;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .prank-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 24px;
+            text-align: center;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="survey">
+        <h1>生活压力指数 / Life Stress Index</h1>
+        <p>感谢您参与我们的问卷调查！请点击下方按钮开始。<br>
+           Thank you for participating in our survey! Please click the button below to start.</p>
+        <button class="start-btn" onclick="startPrank()">开始调查 / Start Survey</button>
+    </div>
+
+    <div class="prank-message" id="prankMessage">
+        你被骗了！哈哈，愚人节快乐！<br>
+        You’ve been pranked! Haha, Happy April Fool’s Day!
+    </div>
+
+    <div class="video-container" id="video">
+        <video id="prankVideo" controls autoplay>
+            <source src="prank-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <script>
+        // 检测是否为 Safari 浏览器
+        function isSafari() {
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        }
+
+        // 在页面加载时根据浏览器设置 muted 属性
+        window.onload = function() {
+            var video = document.getElementById('prankVideo');
+            if (isSafari()) {
+                video.muted = true; // Safari 需要静音才能自动播放
+            } else {
+                video.muted = false; // 其他浏览器保持声音
+            }
+        };
+
+        function startPrank() {
+            // 隐藏问卷页面
+            document.getElementById('survey').style.display = 'none';
+            // 显示“你被骗了”的消息
+            document.getElementById('prankMessage').style.display = 'block';
+            // 1.5秒后隐藏消息并播放视频
+            setTimeout(function() {
+                document.getElementById('prankMessage').style.display = 'none';
+                document.getElementById('video').style.display = 'block';
+                document.getElementById('prankVideo').play();
+            }, 1500); // 1500毫秒 = 1.5秒
+        }
+    </script>
+</body>
+</html>
